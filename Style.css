@@ -1,0 +1,359 @@
+/* *{
+    margin: 0;
+    padding: 0;
+    box-sizing: border-box;
+    font-family: Arial, sans-serif;
+}
+body{
+    background:#fdfcfd;
+}
+nav{
+    background:#333;
+    color: white;
+    display: flex;
+    justify-content:space-evenly;
+    padding: 0px;
+    align-items: center;
+}
+button{
+    margin: 20px 25px;
+    padding: 15px 20px;
+    background-color: #0077cc;
+    color: #ccc;
+    border-radius: 20px;
+    text-align: center;
+    font-size: 20px;
+
+}
+div{
+    margin: 40px;
+    padding: 40px;
+    padding-left: 100px;
+    padding-right: 100px;
+    margin-left: 100px;
+    margin-right: 100px;
+    background-color: #005f;
+
+}
+
+header{
+    text-align: center;
+    padding:  100px 20px;
+    
+    color: white;
+}
+header button{
+    margin-top: 20px;
+    padding: 12px 25px;
+    background: white;
+    color: #0077cc;
+    border: none;
+    border-radius: 5px;
+    cursor: pointer;
+    font-size: 16px;
+}
+header button:hover{
+    background: #ddd;
+}
+.title{
+    text-align:center;
+    margin-top: 30px;
+}
+.Blogs{
+    display: flex;
+    justify-content: center;
+    gap: 20px;
+    flex-wrap: wrap;
+    padding: 30px;
+}
+.card{
+    background: white;
+    width: 300px;
+    padding: 20px;
+    border-radius: 10px;
+    box-shadow: 0 0 10px rgba(0,0,0,.2)
+}
+.card h2{
+margin-bottom:10px;
+}
+
+.form-section{
+width:50%;
+margin:40px auto;
+background:white;
+padding:20px;
+border-radius:10px;
+box-shadow:0 0 10px rgba(0,0,0,.2);
+}
+
+.form-section h2{
+text-align:center;
+margin-bottom:20px;
+}
+
+input,
+textarea{
+width:100%;
+padding:12px;
+margin-bottom:15px;
+border:1px solid #ccc;
+border-radius:5px;
+}
+
+textarea{
+height:120px;
+}
+
+form button{
+width:100%;
+padding:12px;
+background:#0077cc;
+color:white;
+border:none;
+border-radius:5px;
+cursor:pointer;
+font-size:16px;
+}
+
+form button:hover{
+background:#005fa3;
+}
+
+footer{
+background:#333;
+color:white;
+text-align:center;
+padding:15px;
+margin-top:20px;
+} */
+/* General Reset */
+* {
+  margin: 0;
+  padding: 0;
+  box-sizing: border-box;
+  font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+}
+
+body {
+  display: flex;
+  flex-direction: column;
+  min-height: 100vh;
+  background-color: #2b3990; /* Rich blue background */
+  color: #ffffff;
+}
+
+/* Navigation Bar */
+.navbar {
+  background-color: rgba(0, 0, 0, 0.25);
+  padding: 18px 0;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+}
+
+.nav-links {
+  display: flex;
+  gap: 20px;
+}
+
+.nav-btn {
+  color: #ffffff;
+  text-decoration: none;
+  font-size: 1.1rem;
+  font-weight: 500;
+  padding: 8px 24px;
+  border-radius: 12px;
+  background-color: rgba(255, 255, 255, 0.15);
+  transition: all 0.3s ease;
+}
+
+.nav-btn.active,
+.nav-btn:hover {
+  background-color: #3b82f6; /* Highlight blue tone */
+  box-shadow: 0 4px 10px rgba(0, 0, 0, 0.2);
+}
+
+/* Main Hero Section */
+.hero {
+  flex: 1;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  text-align: center;
+  padding: 40px 20px;
+}
+
+.hero-content h1 {
+  font-size: 2.5rem;
+  font-weight: 700;
+  margin-bottom: 12px;
+  letter-spacing: 0.5px;
+}
+
+.hero-content p {
+  font-size: 1.15rem;
+  color: #e0e6ed;
+  font-weight: 400;
+}
+
+/* Footer Section */
+.footer {
+  background-color: rgba(255, 255, 255, 0.15);
+  text-align: center;
+  padding: 16px 20px;
+}
+
+.footer p {
+  font-size: 0.95rem;
+  color: #d1d5db;
+}
+/* General Reset */
+* {
+  margin: 0;
+  padding: 0;
+  box-sizing: border-box;
+  font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+}
+
+body {
+  background-color: #2b3990;
+  color: #ffffff;
+  min-height: 100vh;
+  display: flex;
+  flex-direction: column;
+}
+
+/* Navigation Bar */
+nav {
+  background-color: rgba(0, 0, 0, 0.25);
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  padding: 15px 50px;
+}
+
+.logo {
+  font-size: 1.5rem;
+  font-weight: bold;
+}
+
+nav ul {
+  display: flex;
+  list-style: none;
+  gap: 15px;
+}
+
+nav ul li a {
+  color: #ffffff;
+  text-decoration: none;
+  padding: 8px 20px;
+  border-radius: 8px;
+  background-color: rgba(255, 255, 255, 0.15);
+  transition: background-color 0.3s ease;
+}
+
+nav ul li a:hover {
+  background-color: #3b82f6;
+}
+
+/* Title */
+.title {
+  text-align: center;
+  margin: 30px 0 20px;
+  font-size: 2.2rem;
+}
+
+/* Blog Cards Section */
+.blogs {
+  display: grid;
+  grid-template-columns: repeat(auto-fit, minmax(280px, 1fr));
+  gap: 20px;
+  padding: 0 50px;
+  max-width: 1200px;
+  margin: 0 auto;
+  width: 100%;
+}
+
+.card {
+  background-color: rgba(255, 255, 255, 0.1);
+  border: 1px solid rgba(255, 255, 255, 0.2);
+  padding: 20px;
+  border-radius: 12px;
+  box-shadow: 0 4px 10px rgba(0, 0, 0, 0.2);
+  transition: transform 0.2s ease;
+}
+
+.card:hover {
+  transform: translateY(-5px);
+}
+
+.card h2 {
+  color: #60a5fa;
+  margin-bottom: 8px;
+}
+
+.card p {
+  margin-top: 6px;
+  line-height: 1.5;
+  color: #e0e6ed;
+}
+
+/* Form Section */
+.form-section {
+  max-width: 600px;
+  margin: 40px auto;
+  background-color: rgba(0, 0, 0, 0.2);
+  padding: 30px;
+  border-radius: 12px;
+  width: 90%;
+}
+
+.form-section h2 {
+  margin-bottom: 20px;
+  text-align: center;
+}
+
+form {
+  display: flex;
+  flex-direction: column;
+  gap: 15px;
+}
+
+input, textarea {
+  padding: 12px;
+  border-radius: 8px;
+  border: 1px solid rgba(255, 255, 255, 0.3);
+  background-color: rgba(255, 255, 255, 0.9);
+  font-size: 1rem;
+  color: #333;
+}
+
+textarea {
+  resize: vertical;
+  min-height: 100px;
+}
+
+button {
+  padding: 12px;
+  border: none;
+  border-radius: 8px;
+  background-color: #3b82f6;
+  color: #fff;
+  font-size: 1rem;
+  font-weight: bold;
+  cursor: pointer;
+  transition: background-color 0.3s ease;
+}
+
+button:hover {
+  background-color: #2563eb;
+}
+
+/* Footer */
+footer {
+  margin-top: auto;
+  background-color: rgba(255, 255, 255, 0.15);
+  text-align: center;
+  padding: 15px;
+  font-size: 0.95rem;
+}

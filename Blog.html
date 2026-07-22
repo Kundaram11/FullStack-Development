@@ -1,0 +1,84 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Blog</title>
+
+    <link rel="stylesheet" href="Style.css">
+</head>
+<body>
+
+<nav>
+
+    <div class="logo">My Blog</div>
+
+    <ul>
+        <li><a href="index.html">Home</a></li>
+        <li><a href="blog.html">Blog</a></li>
+    </ul>
+
+</nav>
+
+<h1 class="title">Latest Blogs</h1>
+
+<section class="blogs">
+
+<div class="card">
+<h2>HTML Basics</h2>
+<p><strong>Author:</strong> Tim Berners-Lee </p>
+<p>HTML is the standard language used to create web pages.</p>
+</div>
+
+<div class="card">
+<h2>Learn CSS</h2>
+<p><strong>Author:</strong> Hakon Wium Lie</p>
+<p>CSS makes websites attractive using colors, fonts and layouts.</p>
+</div>
+
+<div class="card">
+<h2>JavaScript Introduction</h2>
+<p><strong>Author:</strong>Brendan Eich</p>
+<p>JavaScript adds interactivity and dynamic behavior to websites.</p>
+</div>
+
+</section>
+
+<section class="form-section">
+
+<h2>Add Blog</h2>
+
+<form id="blogForm">
+
+<input
+type="text"
+id="title"
+placeholder="Blog Title">
+
+<input
+type="text"
+id="author"
+placeholder="Author Name">
+
+<textarea
+id="description"
+placeholder="Write your blog here"></textarea>
+
+<button type="submit">
+Submit Blog
+</button>
+
+</form>
+
+</section>
+
+<footer>
+
+<p>&copy; 2026 My Blog Website</p>
+
+</footer>
+
+<script src="script.js"></script>
+
+</body>
+</html>
