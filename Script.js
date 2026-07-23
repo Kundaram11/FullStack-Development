@@ -1,20 +1,35 @@
-document.getElementById("blogForm").addEventListener("submit", function(event){
+document.getElementById("blogForm").addEventListener("submit", async function(event){
 
 event.preventDefault();
 
-let title = document.getElementById("title").value.trim();
-let author = document.getElementById("author").value.trim();
-let description = document.getElementById("description").value.trim();
+const title = document.getElementById("title").value.trim();
+const author = document.getElementById("author").value.trim();
+const description = document.getElementById("description").value.trim();
 
 if(title === "" || author === "" || description === ""){
-
-alert("Please fill all fields!");
-
-return;
-
+    alert("Please fill all fields!");
+    return;
 }
 
-alert("Blog submitted successfully!");
+const response = await fetch("/api/blog",{
+
+method:"POST",
+
+headers:{
+"Content-Type":"application/json"
+},
+
+body:JSON.stringify({
+title,
+author,
+description
+})
+
+});
+
+const data = await response.json();
+
+alert(data.message);
 
 document.getElementById("blogForm").reset();
 
