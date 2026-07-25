@@ -36,6 +36,7 @@ body {
   border-radius: 12px;
   background-color: rgba(255, 255, 255, 0.15);
   transition: all 0.3s ease;
+  font-family: 'Times New Roman', Times, serif;
 }
 
 .nav-btn.active,
@@ -57,7 +58,8 @@ body {
 .hero-content h1 {
   font-size: 2.5rem;
   font-weight: 700;
-  margin-bottom: 12px;
+  font-family: 'Times New Roman', Times, serif;
+  margin-bottom: 10px;
   letter-spacing: 0.5px;
 }
 
@@ -66,17 +68,36 @@ body {
   color: #e0e6ed;
   font-weight: 400;
 }
+.search-box {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  gap: 10px;
+  margin: 20px;
+}
+.search-box i{
+  color: white;
+  font-size: 20px ;
+}
+.search-box input{
+  width: 320px;
+  padding: 10px 15px;
+  border-radius: 8px;
+  border: none;
+}
 
 /* Footer Section */
 .footer {
   background-color: rgba(255, 255, 255, 0.15);
   text-align: center;
   padding: 16px 20px;
+
 }
 
 .footer p {
   font-size: 0.95rem;
   color: #d1d5db;
+  font-family: 'Times New Roman', Times, serif;
 }
 /* General Reset */
 * {
@@ -106,6 +127,7 @@ nav {
 .logo {
   font-size: 1.5rem;
   font-weight: bold;
+  font-family: 'Times New Roman', Times, serif;
 }
 
 nav ul {
@@ -132,6 +154,7 @@ nav ul li a:hover {
   text-align: center;
   margin: 30px 0 20px;
   font-size: 2.2rem;
+  font-family: 'Times New Roman', Times, serif;
 }
 
 /* Blog Cards Section */
@@ -139,10 +162,23 @@ nav ul li a:hover {
   display: grid;
   grid-template-columns: repeat(auto-fit, minmax(280px, 1fr));
   gap: 20px;
-  padding: 0 50px;
+  padding: 0 0px;
   max-width: 1200px;
   margin: 0 auto;
   width: 100%;
+  font-family: 'Times New Roman', Times, serif;
+}
+.blog-counter{
+  text-align: center;
+  margin-bottom: 20px;
+}
+#blogCount{
+  display: inline-block;
+  padding: 10px 20px;
+  background: rgba(255,255,255,0.15);
+  border-radius: 10px;
+  color: #fff;
+  font-size: 1.1rem;
 }
 
 .card {
@@ -161,12 +197,51 @@ nav ul li a:hover {
 .card h2 {
   color: #60a5fa;
   margin-bottom: 8px;
+  font-family: 'Times New Roman', Times, serif;
 }
 
 .card p {
   margin-top: 6px;
   line-height: 1.5;
   color: #e0e6ed;
+  font-family: 'Times New Roman', Times, serif;
+}
+/* Blog date */
+.blog-date {
+  font-size: 0.9rem;
+  color: #dbeafe;
+  margin-top: 12px;
+}
+/* new badge */
+.badge{
+  position:absolute;
+  top: 15px;
+  right: 15px;
+  background: #ef4444;
+  color: white;
+  font-size: 0.75rem;
+  font-weight: bold;
+  padding: 5px 10px;
+  border-radius: 20px;
+}
+/* no blog message */
+.no-blog{
+  text-align: center;
+  font-size: 1.2rem;
+  color: #fff;
+  padding: 40px;
+}
+/* Responsive */
+@media (max-width: 768){
+  .hero-content h1{
+    font-size: 2rem;
+  }
+  .search-box input{
+    width: 10px;
+  }
+  .blogs{
+    grid-template-columns: 1fr;
+  }
 }
 
 /* Form Section */
@@ -182,6 +257,7 @@ nav ul li a:hover {
 .form-section h2 {
   margin-bottom: 20px;
   text-align: center;
+  font-family: 'Times New Roman', Times, serif;
 }
 
 form {
@@ -214,6 +290,7 @@ button {
   font-weight: bold;
   cursor: pointer;
   transition: background-color 0.3s ease;
+  font-family: 'Times New Roman', Times, serif;
 }
 
 button:hover {
@@ -222,9 +299,11 @@ button:hover {
 
 /* Footer */
 footer {
-  margin-top: auto;
+  margin-top: 40px;
   background-color: rgba(255, 255, 255, 0.15);
   text-align: center;
   padding: 15px;
   font-size: 0.95rem;
+  font-family: 'Times New Roman', Times, serif;
+
 }
