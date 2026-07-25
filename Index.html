@@ -17,17 +17,36 @@
   </nav>
 
   <!-- Hero Section -->
+   
+
   <main class="hero">
     <div class="hero-content">
       <h1>Welcome to My Blog Website</h1>
       <p>Learn Web Development with HTML, CSS and JavaScript</p>
     </div>
   </main>
+  
+  <!-- Blog Section-->
+  <section class="blogs-section">
 
-  <!-- Footer -->
+    <h2 class="title">📚 Latest Blogs</h2>
+    <!--Total Blog Counter-->
+    <div class="blog-counter">
+      <h3 id="blogCount">📊 Total Blogs:0</h3>
+    </div>
+    <!-- Search Box-->
+     <div class="search-box">
+      <input type="text" id="search" placeholder=" 🔍 Search blogs by title....">
+     </div>
+     <!-- Blog Cards-->
+    <div id="blogList" class="blogs"></div>
+
+  </section>
+  <script src="Script.js"></script>
+
+  <!-- Footer Section-->
   <footer class="footer">
     <p>&copy; 2026 My Blog Website </p>
   </footer>
-
 </body>
 </html>
