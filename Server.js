@@ -14,20 +14,26 @@ app.use(express.static(path.join(__dirname, "Frontend")));
 // JavaScript array to store blogs
 let blogs =[
     {
+        id: 1,
         title:"HTML Basics",
         author: "Tim Berners-Lee",
-        description: "HTML is the standard language used to create web pages."
+        description: "HTML is the standard language used to create web pages.",
+        date: "25 July 2026"
     },
-    {
+    {   
+        id: 2,
         title: "Learn CSS",
         author: "Hakon Wium Lie",
-        description: "CSS makes websites attractive using colors, fonts and layouts."
+        description: "CSS makes websites attractive using colors, fonts and layouts.",
+        date: "25 July 2026"
 
     },
-    {
+    {   
+        id: 3,
         title: "JavaScript Introduction",
         author: "Brendan Eich",
-        description: "JavaScript adds interactivity and dynamic behavior to websites."
+        description: "JavaScript adds interactivity and dynamic behavior to websites.",
+        date: "25 July 2026"
     }
 ];
 
@@ -42,15 +48,21 @@ app.post("/api/blog", (req, res) => {
     const { title, author, description } = req.body;
 
     const newBlog = {
+        id: blogs.length + 1,
         title,
         author,
-        description
+        description,
+        date: new Date().toLocaleDateString("en-GB",{
+            day: "2-digit",
+            month: "long",
+            year: "numeric"
+        })
     };
 
     blogs.push(newBlog);
 
     res.status(201).json({
-        message: "Blog added successfully!",
+        message: "✅ Blog added successfully!",
         blog: newBlog
     });
 
