@@ -168,6 +168,18 @@ nav ul li a:hover {
   width: 100%;
   font-family: 'Times New Roman', Times, serif;
 }
+/* BLOG CONTAINER */
+.blog-container {
+    display: grid;
+
+    grid-template-columns: repeat(
+        auto-fit,
+        minmax(280px, 1fr)
+    );
+
+    gap: 25px;
+}
+/* BLOG COUNTER */
 .blog-counter{
   text-align: center;
   margin-bottom: 20px;
@@ -180,7 +192,7 @@ nav ul li a:hover {
   color: #fff;
   font-size: 1.1rem;
 }
-
+/* BLOG CARD */
 .card {
   background-color: rgba(255, 255, 255, 0.1);
   border: 1px solid rgba(255, 255, 255, 0.2);
@@ -188,10 +200,14 @@ nav ul li a:hover {
   border-radius: 12px;
   box-shadow: 0 4px 10px rgba(0, 0, 0, 0.2);
   transition: transform 0.2s ease;
+  display: flex;
+  flex-direction: column;
+  height: 100%;
 }
 
 .card:hover {
   transform: translateY(-5px);
+  box-shadow: 0 8px 20px rgba(0, 0, 0, 0.12);
 }
 
 .card h2 {
@@ -205,6 +221,19 @@ nav ul li a:hover {
   line-height: 1.5;
   color: #e0e6ed;
   font-family: 'Times New Roman', Times, serif;
+}
+.blog-author {
+    font-size: 14px;
+    color: #777;
+    margin-bottom: 15px;
+}
+
+
+.blog-description {
+    line-height: 1.6;
+    color: #555;
+    margin-bottom: 20px;
+    flex-grow: 1;
 }
 /* Blog date */
 .blog-date {
@@ -231,18 +260,7 @@ nav ul li a:hover {
   color: #fff;
   padding: 40px;
 }
-/* Responsive */
-@media (max-width: 768){
-  .hero-content h1{
-    font-size: 2rem;
-  }
-  .search-box input{
-    width: 10px;
-  }
-  .blogs{
-    grid-template-columns: 1fr;
-  }
-}
+
 
 /* Form Section */
 .form-section {
@@ -253,6 +271,7 @@ nav ul li a:hover {
   border-radius: 12px;
   width: 90%;
 }
+
 
 .form-section h2 {
   margin-bottom: 20px;
@@ -279,6 +298,117 @@ textarea {
   resize: vertical;
   min-height: 100px;
 }
+/* FORM */
+.form-group {
+    margin-bottom: 20px;
+}
+
+.form-group label {
+    display: block;
+    font-weight: 600;
+    margin-bottom: 8px;
+}
+
+
+.form-group input,
+.form-group textarea {
+    width: 100%;
+    padding: 12px;
+    border: 1px solid #ccc;
+    border-radius: 7px;
+    font-size: 15px;
+    outline: none;
+    transition: 0.3s;
+}
+
+
+.form-group input:focus,
+.form-group textarea:focus {
+    border-color: #007bff;
+
+    box-shadow: 0 0 4px rgba(0, 123, 255, 0.2);
+}
+
+
+.form-group textarea {
+    resize: vertical;
+}
+
+
+/* FORM-BUTTONS */
+
+.form-buttons {
+    display: flex;
+    gap: 12px;
+    margin-top: 25px;
+}
+.submitButton,
+.cancelButton {
+    flex: 1;
+    padding: 12px;
+    border: none;
+    border-radius: 7px;
+    cursor: pointer;
+    font-size: 16px;
+    font-weight: 600;
+    transition: 0.3s;
+}
+
+
+.submitButton {
+    background-color: #007bff;
+    color: white;
+}
+
+
+.submitButton:hover {
+    background-color: #0056b3;
+}
+
+
+.cancelButton {
+    background-color: #6c757d;
+    color: white;
+}
+
+
+.cancelButton:hover {
+    background-color: #0056b3;
+}
+
+.submit-btn,
+.cancel-btn {
+    flex: 1;
+    padding: 12px;
+    border: none;
+    border-radius: 7px;
+    cursor: pointer;
+    font-size: 16px;
+    font-weight: 600;
+    transition: 0.3s;
+}
+
+
+.submit-btn {
+    background-color: #007bff;
+    color: white;
+}
+
+
+.submit-btn:hover {
+    background-color: #0056b3;
+}
+
+
+.cancel-btn {
+    background-color: #6c757d;
+    color: white;
+}
+
+
+.cancel-btn:hover {
+    background-color: #0056b3;
+}
 
 button {
   padding: 12px;
@@ -296,6 +426,52 @@ button {
 button:hover {
   background-color: #2563eb;
 }
+/* BLOG ACTION BUTTON */
+.blog-actions {
+    display: flex;
+    gap: 10px;
+    margin-top: auto;
+    padding-top: 15px ;
+}
+
+
+.edit-btn,
+.delete-btn {
+  flex: 1;
+    padding: 10px 15px;
+    border: none;
+    border-radius: 8px;
+    cursor: pointer;
+    font-size: 15px;
+    background: #f0ad4e;
+    color: white;
+   
+  
+}
+
+
+.edit-btn {
+    background-color: #14B8A6;
+    color: #222;
+}
+
+
+.edit-btn:hover {
+    background-color: #0F766E;
+    opacity: 0.85;
+}
+
+
+.delete-btn {
+    background-color: #EF4444;
+    color: white;
+}
+
+
+.delete-btn:hover {
+    background-color: #EF4444;
+    opacity: 0.85;
+}
 
 /* Footer */
 footer {
@@ -305,5 +481,35 @@ footer {
   padding: 15px;
   font-size: 0.95rem;
   font-family: 'Times New Roman', Times, serif;
+
+}
+/* RESPONSIVE */
+@media (max-width: 600px) {
+
+    header {
+        flex-direction: column;
+
+        gap: 15px;
+    }
+
+
+    nav {
+        gap: 10px;
+    }
+
+
+    .hero h1 {
+        font-size: 30px;
+    }
+
+
+    .form-section {
+        padding: 25px 20px;
+    }
+
+
+    .form-buttons {
+        flex-direction: column;
+    }
 
 }
