@@ -43,20 +43,28 @@ app.get("/api/blogs", (req, res) => {
 });
         
 // POST new blog
-app.post("/api/blog", (req, res) => {
+app.post("/api/blogs",(req, res) => {
 
     const { title, author, description } = req.body;
+    if (!title || !author || !description) {
+        return res.status(400).json({
+            message: " ⚠️ All fields are required!"
+        });
+    }
+    // Generate today's date
+    const today = new Date().toLocaleDateString("en-GB", {
+        day: "2-digit",
+        month: "long",
+        year: "numeric"
+    });
 
     const newBlog = {
-        id: blogs.length + 1,
+        id: blogs.length > 0 ? blogs[blogs.length - 1].id + 1 : 1,
         title,
         author,
         description,
-        date: new Date().toLocaleDateString("en-GB",{
-            day: "2-digit",
-            month: "long",
-            year: "numeric"
-        })
+        date: today
+        
     };
 
     blogs.push(newBlog);
@@ -67,6 +75,66 @@ app.post("/api/blog", (req, res) => {
     });
 
 });
+// PUT - Update an existing blog
+app.put("/api/blogs/:id",(req, res) => {
+
+    const blogId = parseInt(req.params.id);
+
+    const { title, author, description } = req.body;
+
+    const blogIndex = blogs.findIndex(blog => blog.id === blogId);
+    // Find Blog
+    if (blogIndex === -1) {
+        return res.status(404).json({
+            message: "❌ Blog not found!"
+        });
+    }
+
+    if (!title || !author || !description) {
+        return res.status(400).json({
+            message: "⚠️ All fields are required!"
+        });
+    }
+    // Generate today's date when blog is updated
+    const updatedDate = new Date().toLocaleDateString("en-GB", {
+        day: "2-digit",
+        month: "long",
+        year: "numeric"
+    });
+    blogs[blogIndex] = {
+        id: blogId,
+        title,
+        author,
+        description,
+        date: updatedDate
+    };
+
+    res.json({
+        message: "✅ Blog updated successfully!",
+        blog: blogs[blogIndex]
+    });
+});
+
+// DELETE - Delete a blog
+app.delete("/api/blogs/:id", (req, res) => {
+
+    const blogId = parseInt(req.params.id);
+
+    const blogIndex = blogs.findIndex(blog => blog.id === blogId);
+
+    if (blogIndex === -1) {
+        return res.status(404).json({
+            message: "❌ Blog not found!"
+        });
+    }
+    // Delete Blog
+    blogs.splice(blogIndex, 1);
+
+    res.json({
+        message: "🗑️ Blog deleted successfully!"
+    });
+});
+
 
 app.listen(PORT, () => {
     console.log(`Server running at http://localhost:${PORT}`);
