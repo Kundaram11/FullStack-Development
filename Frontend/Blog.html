@@ -1,0 +1,100 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Blog</title>
+
+    <link rel="stylesheet" href="Style.css">
+    <link rel="icon" href="data:,">
+</head>
+<body>
+
+<nav>
+
+    <div class="logo">📝My Blog</div>
+
+    <ul>
+        <li><a href="index.html">Home</a></li>
+        <li><a href="blog.html">Blog</a></li>
+    </ul>
+
+</nav>
+
+
+
+<section class="form-section">
+<div class="form-header">
+    <h2>✍️Add Blog</h2>
+    <p>create a new blog post</p>
+</div>
+
+
+<form id="blogForm">
+    
+ <!-- Hidden Blog ID -->
+    <input type="hidden" id="blogId">
+
+
+<!-- Title -->
+<div class="form-group">
+
+    <label for="title1">
+        Blog Title
+    </label>
+  
+<input
+type="text"
+id="title1"
+placeholder="Blog Title"
+required>
+</div>
+<!-- Author -->
+<div class="form-group">
+    <label for="author1">
+        Author
+    </label>
+<input
+type="text"
+id="author1"
+placeholder="Author Name" 
+required >
+</div>
+<!-- Description -->
+<div class="form-group">
+    <label for="description1">
+        Description
+    </label>
+ 
+<textarea
+id="description1"
+placeholder="Write your blog here"
+required>
+</textarea>
+</div>
+<!-- Buttons -->
+<div class="form-buttons">
+    <button type="submit" id="submitBtn" class="submitButton">
+       ✅ Publish Blog
+    </button>
+    <button type="button" id="cancelBtn" class="cancelButton" onclick="window.location.href='Index.html'">
+       ❌ Cancel
+    </button>
+
+</div>
+
+
+</form>
+
+</section>
+
+<footer class="footer">
+
+<p>&copy; 2026 My Blog Website | FullStack Development Internship</p>
+
+</footer>
+
+<script src="Script.js"></script>
+
+</body>
+</html>

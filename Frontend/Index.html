@@ -1,0 +1,54 @@
+
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>Home</title>
+  <link rel="stylesheet" href="Style.css" />
+  <link rel="icon" href="data:,">
+</head>
+<body>
+
+  <!-- Navigation Bar -->
+  <nav class="navbar">
+    <div class="nav-links">
+      <a href="Index.html" class="nav-btn ">Home</a>
+      <a href="Blog.html" class="nav-btn">Blog</a>
+    </div>
+  </nav>
+
+  <!-- Hero Section
+    -->
+
+  <main class="hero">
+    <div class="hero-content">
+      <h1>Welcome to My Blog Website</h1>
+      <p>Read, Create and Manage interesting blog posts.</p>
+    </div>
+  </main>
+  
+  <!-- Blog Section -->
+  <section class="blogs-section">
+
+    <h2 class="title">📚 Latest Blogs</h2>
+    <!-- Total Blog Counter -->
+    <div class="blog-counter">
+      <h3 id="blogCount">📊 Total Blogs:0</h3>
+    </div>
+    <!-- Search Box -->
+     <div class="search-box">
+      <input type="text" id="search" placeholder=" 🔍 Search blogs by title....">
+     </div>
+     <!-- Blog Cards -->
+    <div id="blogList" class="blogs"></div>
+
+  </section>
+  <script src="Script.js"></script>
+
+  <!-- Footer Section -->
+  <footer class="footer">
+    <p>&copy; 2026 My Blog Website | FullStack Development Internship </p>
+  </footer>
+</body>
+</html>
