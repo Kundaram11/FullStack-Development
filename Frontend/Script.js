@@ -1,171 +1,417 @@
 const blogForm = document.getElementById("blogForm");
 
 if (blogForm) {
+
     blogForm.addEventListener("submit", async function (event) {
 
         event.preventDefault();
 
-        
-        // Check which form is being used
-        const isEditPage = document.getElementById("blogId")?.value;
+        console.log("Form submitted");
+
+        // CHECK EDIT OR ADD
+
+        const blogIdElement =
+            document.getElementById("blogId");
+
+        const blogId =
+            blogIdElement ? blogIdElement.value : "";
+
 
         let title;
         let author;
         let description;
 
-        if (isEditPage) {
+        // EDIT BLOG
 
-            // EDIT BLOG
-            title = document.getElementById("title").value.trim();
-            author = document.getElementById("author").value.trim();
-            description = document.getElementById("description").value.trim();
+        if (blogId) {
 
-        } else {
+            const titleElement =
+                document.getElementById("title");
 
-            // ADD BLOG
-            title = document.getElementById("title1").value.trim();
-            author = document.getElementById("author1").value.trim();
-            description = document.getElementById("description1").value.trim();
-        }
+            const authorElement =
+                document.getElementById("author");
 
-        if (title === "" || author === "" || description === "") {
-            alert("⚠️ Please fill all fields!");
-            return;
-        }
-        // Check if we are editing a blog
-        const blogId = document.getElementById("blogId")?.value;
+            const descriptionElement =
+                document.getElementById("description");
 
-        try {
 
-            
-            // EDIT / UPDATE BLOG
-            
+            if (
+                !titleElement ||
+                !authorElement ||
+                !descriptionElement
+            ) {
 
-            if (blogId) {
-
-                const response = await fetch(`/api/blogs/${blogId}`, {
-                    method: "PUT",
-                    headers: {
-                        "Content-Type": "application/json"
-                    },
-                    body: JSON.stringify({
-                        title,
-                        author,
-                        description
-                    })
-                });
-
-                const data = await response.json();
-
-                alert(data.message);
-
-                if (response.ok) {
-                    // remove edit id
-                    localStorage.removeItem("editBlogId");
-                    // Go to home page
-                    window.location.href = "index.html";
-                }
+                alert("❌ Edit form fields not found!");
 
                 return;
             }
-         
-           // ADD NEW BLOG
-        
-            const response = await fetch("/api/blogs", {
-                method: "POST",
-                headers: {
-                    "Content-Type": "application/json"
-                },
-                body: JSON.stringify({
-                    title: title,
-                    author: author,
-                    description: description
-            })
-        });
 
-        const data = await response.json();
+            title =
+                titleElement.value.trim();
 
-        alert(data.message);
+            author =
+                authorElement.value.trim();
 
-         if (response.ok) {
-                // clear form
-                blogForm.reset();
+            description =
+                descriptionElement.value.trim();
+
+        }
+
+        // ADD BLOG
+
+        else {
+
+            const titleElement =
+                document.getElementById("title1");
+
+            const authorElement =
+                document.getElementById("author1");
+
+            const descriptionElement =
+                document.getElementById("description1");
+
+
+            if (
+                !titleElement ||
+                !authorElement ||
+                !descriptionElement
+            ) {
+
+                alert("❌ Add Blog form fields not found!");
+
+                return;
             }
 
-        } catch (error) {
 
-            console.error("Error:", error);
+            title =
+                titleElement.value.trim();
 
-            alert("❌ Something went wrong!");
+            author =
+                authorElement.value.trim();
+
+            description =
+                descriptionElement.value.trim();
+
+        }
+
+        // VALIDATION
+
+        if (
+            title === "" ||
+            author === "" ||
+            description === ""
+        ) {
+
+            alert("⚠️ Please fill all fields!");
+
+            return;
+        }
+
+
+        try {
+
+            // UPDATE BLOG
+
+            if (blogId) {
+
+                console.log(
+                    "Updating blog:",
+                    blogId
+                );
+
+
+                const response =
+                    await fetch(
+                        `/api/blogs/${blogId}`,
+                        {
+                            method: "PUT",
+
+                            headers: {
+                                "Content-Type":
+                                    "application/json"
+                            },
+
+                            body: JSON.stringify({
+                                title: title,
+                                author: author,
+                                description: description
+                            })
+                        }
+                    );
+
+
+                const data =
+                    await response.json();
+
+
+                console.log(
+                    "Update response:",
+                    data
+                );
+
+
+                if (!response.ok) {
+
+                    throw new Error(
+                        data.message ||
+                        "Failed to update blog"
+                    );
+
+                }
+
+
+                alert(
+                    "✅ Blog updated successfully!"
+                );
+
+
+                localStorage.removeItem(
+                    "editBlogId"
+                );
+
+
+                window.location.href =
+                    "Index.html";
+
+
+                return;
+            }
+
+            // ADD BLOG
+
+            console.log("Adding new blog");
+
+
+            const response =
+                await fetch(
+                    "/api/blogs",
+                    {
+                        method: "POST",
+
+                        headers: {
+                            "Content-Type":
+                                "application/json"
+                        },
+
+                        body: JSON.stringify({
+                            title: title,
+                            author: author,
+                            description: description
+                        })
+                    }
+                );
+
+
+            const data =
+                await response.json();
+
+
+            console.log(
+                "Add response:",
+                data
+            );
+
+
+            if (!response.ok) {
+
+                throw new Error(
+                    data.message ||
+                    "Failed to add blog"
+                );
+
+            }
+
+            // THIS ALERT WILL NOW APPEAR
+            alert(
+                "✅ Blog added successfully!"
+            );
+
+
+            blogForm.reset();
+
+
+            // Go to home page
+            window.location.href =
+                "Index.html";
+
+        }
+
+
+        catch (error) {
+
+            console.error(
+                "Add/Edit error:",
+                error
+            );
+
+
+            alert(
+                "❌ " + error.message
+            );
 
         }
 
     });
+
 }
-    
-// loadBlogs
+
+// LOAD BLOGS
+
 async function loadBlogs() {
-    try{
 
-    const response = await fetch("/api/blogs");
-    const blogs = await response.json();
+    const blogList =
+        document.getElementById("blogList");
 
-    const blogList = document.getElementById("blogList");
+    if (!blogList) {
 
-    if (!blogList) return;
-    //  Blog Counter
-    const blogCount = document.getElementById("blogCount");
-    if(blogCount){
-        blogCount.textContent = `📊 Total Blogs: ${blogs.length}`;
-    }
-    // No Blogs
-    if(blogs.length === 0){
-        blogList.innerHTML = `
-        <h3 class="no-blog">
-           No blogs available
-        </h3>`;
         return;
     }
-    // clear previous blogs
-    blogList.innerHTML = "";
-    // Display Blogs
-    blogs.forEach((blog,index) => {
 
-        blogList.innerHTML += `
-            <div class="card">
-                ${index === blogs.length-1?`<span class="badge"></span>` : ''}
-                <h2>${blog.title}</h2>
-                <p><strong>👤 Author:</strong> ${blog.author}</p>
-                <p>${blog.description}</p>
-                <p class="blog-date">📅 ${blog.date}</p>
-            
-            
+
+    try {
+
+        console.log(
+            "Loading blogs from API..."
+        );
+
+
+        const response =
+            await fetch("/api/blogs");
+
+
+        console.log(
+            "GET /api/blogs status:",
+            response.status
+        );
+
+
+        if (!response.ok) {
+
+            throw new Error(
+                "Unable to load blogs"
+            );
+
+        }
+
+        const blogs =
+            await response.json();
+
+
+        console.log(
+            "Blogs received:",
+            blogs
+        );
+
+        // BLOG COUNTER
+
+        const blogCount =
+            document.getElementById("blogCount");
+
+
+        if (blogCount) {
+
+            blogCount.textContent =
+                `📊 Total Blogs: ${blogs.length}`;
+
+        }
+
+        // NO BLOGS
+
+        if (
+            !Array.isArray(blogs) ||
+            blogs.length === 0
+        ) {
+
+            blogList.innerHTML = `
+                <h3 class="no-blog">
+                    📝 No blogs available
+                </h3>
+            `;
+
+            return;
+        }
+
+        // DISPLAY BLOGS
+        
+        blogList.innerHTML = "";
+
+
+        blogs.forEach(function (blog) {
+
+            const card =
+                document.createElement("div");
+
+
+            card.className = "card";
+
+
+            card.innerHTML = `
+
+                <h2>
+                    ${escapeHTML(blog.title)}
+                </h2>
+
+                <p>
+                    <strong>👤 Author:</strong>
+                    ${escapeHTML(blog.author)}
+                </p>
+
+                <p>
+                    ${escapeHTML(blog.description)}
+                </p>
+
+                <p class="blog-date">
+                    📅 ${escapeHTML(
+                        blog.date || "No date"
+                    )}
+                </p>
+
+
                 <div class="blog-actions">
 
-                    <button class="edit-btn" onclick="editBlog(${blog.id})">
+                    <button
+                        class="edit-btn"
+                        onclick="editBlog(${blog.id})">
                         ✏️ Edit
                     </button>
+
+
                     <button
-                            class="delete-btn"
-                            onclick="deleteBlog(${blog.id})">
-                            🗑️ Delete
+                        class="delete-btn"
+                        onclick="deleteBlog(${blog.id})">
+                        🗑️ Delete
                     </button>
 
                 </div>
-            </div>  
-            
-        `;
+            `;
 
-    });
-    // Apply current search
+
+            blogList.appendChild(card);
+
+        });
+
+
         applySearch();
 
+    }
 
-} catch (error) {
 
-        console.error("Error loading blogs:", error);
+    catch (error) {
+
+        console.error(
+            "Load blogs error:",
+            error
+        );
+
+
+        blogList.innerHTML = `
+            <h3 class="no-blog">
+                ❌ Failed to load blogs
+            </h3>
+        `;
 
     }
+
 }
 
 // EDIT BLOG
@@ -174,139 +420,189 @@ async function editBlog(id) {
 
     try {
 
-        const response = await fetch("/api/blogs");
+        const response =
+            await fetch("/api/blogs");
 
-        const blogs = await response.json();
 
-        const blog = blogs.find(
-            blog => blog.id === parseInt(id)
-        );
+        const blogs =
+            await response.json();
+
+
+        const blog =
+            blogs.find(
+                item =>
+                    Number(item.id) === Number(id)
+            );
 
 
         if (!blog) {
 
-            alert("❌ Blog not found!");
+            alert(
+                "❌ Blog not found!"
+            );
 
             return;
         }
 
 
-        // Save blog ID
-        localStorage.setItem("editBlogId", blog.id);
+        localStorage.setItem(
+            "editBlogId",
+            blog.id
+        );
 
 
-        // Open EditBlog.html
-        window.location.href = "EditBlog.html";
+        window.location.href =
+            "EditBlog.html";
 
-    } catch (error) {
+    }
 
-        console.error("Error:", error);
 
-        alert("❌ Unable to edit blog!");
+    catch (error) {
+
+        console.error(
+            "Edit error:",
+            error
+        );
+
+
+        alert(
+            "❌ Unable to edit blog!"
+        );
 
     }
 
 }
 
-// LOAD BLOG DATA INTO EDIT FORM
-
+// LOAD EDIT BLOG
 
 async function loadEditBlog() {
 
-    const blogId = localStorage.getItem("editBlogId");
+    const blogId =
+        localStorage.getItem("editBlogId");
 
-    if (!blogId) return;
+
+    if (!blogId) {
+
+        return;
+    }
 
 
-    // Check whether form exists
+    const titleInput =
+        document.getElementById("title");
 
-    const titleInput = document.getElementById("title");
-    const authorInput = document.getElementById("author");
-    const descriptionInput = document.getElementById("description");
-    const blogIdInput = document.getElementById("blogId");
+    const authorInput =
+        document.getElementById("author");
 
-    if (!titleInput || !authorInput || !descriptionInput) {
+    const descriptionInput =
+        document.getElementById("description");
+
+
+    // Not EditBlog page
+    if (
+        !titleInput ||
+        !authorInput ||
+        !descriptionInput
+    ) {
+
         return;
     }
 
 
     try {
 
-        const response = await fetch("/api/blogs");
-
-        const blogs = await response.json();
-
-        const blog = blogs.find(
-            blog => blog.id === parseInt(blogId)
-        );
+        const response =
+            await fetch(
+                `/api/blogs/${blogId}`
+            );
 
 
-        if (!blog) {
-
-             alert("❌ Blog not found!");
-
-            localStorage.removeItem("editBlogId");
-
-            window.location.href = "Index.html";
-
-            return;
-        }
+        const blog =
+            await response.json();
 
 
-        // Fill form with existing data
+        if (!response.ok) {
 
-        titleInput.value = blog.title;
-
-        authorInput.value = blog.author;
-
-        descriptionInput.value = blog.description;
-
-
-        // Create hidden ID field if it doesn't exist
-
-        let idInput = document.getElementById("blogId");
-
-        if (!idInput) {
-
-            idInput = document.createElement("input");
-
-            idInput.type = "hidden";
-
-            idInput.id = "blogId";
-
-            idInput.value = blog.id;
-
-            blogForm.appendChild(idInput);
-
-        } else {
-
-            idInput.value = blog.id;
+            throw new Error(
+                blog.message ||
+                "Blog not found"
+            );
 
         }
 
+        // Fill form
+        titleInput.value =
+            blog.title;
 
-        // Change heading
+        authorInput.value =
+            blog.author;
 
-        const formTitle = document.getElementById("formTitle");
+        descriptionInput.value =
+            blog.description;
+
+
+        // Hidden ID
+        let hiddenId =
+            document.getElementById("blogId");
+
+
+        if (!hiddenId) {
+
+            hiddenId =
+                document.createElement("input");
+
+            hiddenId.type = "hidden";
+
+            hiddenId.id = "blogId";
+
+            hiddenId.name = "blogId";
+
+            blogForm.appendChild(
+                hiddenId
+            );
+
+        }
+
+
+        hiddenId.value =
+            blog.id;
+
+
+        // Change title
+        const formTitle =
+            document.getElementById(
+                "formTitle"
+            );
+
 
         if (formTitle) {
-            formTitle.textContent = "✏️ Edit Blog";
+
+            formTitle.textContent =
+                "✏️ Edit Blog";
+
         }
 
 
         // Change button
+        const submitButton =
+            document.getElementById(
+                "submitButton"
+            );
 
-        const submitButton = document.getElementById("submitButton");
 
         if (submitButton) {
-            submitButton.textContent = "🔄 Update Blog";
+
+            submitButton.textContent =
+                "🔄 Update Blog";
+
         }
 
 
         // Change subtitle
-
         const formSubtitle =
-            document.getElementById("formSubtitle");
+            document.getElementById(
+                "formSubtitle"
+            );
+
 
         if (formSubtitle) {
 
@@ -315,25 +611,36 @@ async function loadEditBlog() {
 
         }
 
-    } catch (error) {
+    }
 
-        console.error("Error:", error);
+    catch (error) {
+
+        console.error(
+            "Load edit blog error:",
+            error
+        );
+
+
+        alert(
+            "❌ Unable to load blog!"
+        );
 
     }
 
 }
-// Delete Blog
-// ==========================================
+
+// DELETE BLOG
 
 async function deleteBlog(id) {
 
-    // Confirmation
-    const confirmDelete = confirm(
-        "Are you sure you want to delete this blog?"
-    );
+    const confirmDelete =
+        confirm(
+            "Are you sure you want to delete this blog?"
+        );
 
 
     if (!confirmDelete) {
+
         return;
     }
 
@@ -341,52 +648,123 @@ async function deleteBlog(id) {
     try {
 
         const response =
-            await fetch(`/api/blogs/${id}`, {
-
-                method: "DELETE"
-            });
+            await fetch(
+                `/api/blogs/${id}`,
+                {
+                    method: "DELETE"
+                }
+            );
 
 
         const data =
             await response.json();
 
 
-        alert(data.message);
+        if (!response.ok) {
 
+            throw new Error(
+                data.message ||
+                "Failed to delete blog"
+            );
 
-        if (response.ok) {
-
-            // Reload blogs
-            loadBlogs();
         }
 
 
-    } catch (error) {
+        alert(
+            "🗑️ Blog deleted successfully!"
+        );
 
-        console.error("Error:", error);
 
-        alert("❌ Unable to delete blog!");
+        loadBlogs();
 
     }
+
+
+    catch (error) {
+
+        console.error(
+            "Delete error:",
+            error
+        );
+
+
+        alert(
+            "❌ " + error.message
+        );
+
+    }
+
 }
 
-// Search Blogs
-const search =
-    document.getElementById("search");
+// SEARCH BLOGS
+
+const searchInput = document.getElementById("search");
+
+if (searchInput) {
+
+    searchInput.addEventListener("input", function () {
+
+        const searchValue = searchInput.value
+            .toLowerCase()
+            .trim();
+
+        const cards = document.querySelectorAll(".card");
+
+        let found = false;
+
+        cards.forEach(function (card) {
+
+            const cardText = card.textContent.toLowerCase();
+
+            if (cardText.includes(searchValue)) {
+
+                card.style.display = "";
+                found = true;
+
+            } else {
+
+                card.style.display = "none";
+
+            }
+
+        });
 
 
-if (search) {
+        // Remove previous "Blog not found" message
+        const oldMessage =
+            document.getElementById("searchNotFound");
 
-    search.addEventListener(
-        "input",
-        function () {
+        if (oldMessage) {
+            oldMessage.remove();
+        }
 
-            applySearch();
+
+        // Show message if no blog matches
+        if (!found && searchValue !== "") {
+
+            const blogList =
+                document.getElementById("blogList");
+
+            const message =
+                document.createElement("h3");
+
+            message.id = "searchNotFound";
+
+            message.className = "no-blog";
+
+            message.textContent =
+                "⚠️ Blog not found!";
+
+            blogList.appendChild(message);
 
         }
-    );
+
+    });
+
 }
-// Apply Search
+
+// APPLY SEARCH
+
 function applySearch() {
 
     const searchInput =
@@ -394,9 +772,12 @@ function applySearch() {
 
 
     if (!searchInput) {
+
         return;
     }
-    const value =
+
+
+    const searchValue =
         searchInput.value
             .toLowerCase()
             .trim();
@@ -404,39 +785,71 @@ function applySearch() {
 
     const cards =
         document.querySelectorAll(".card");
-        cards.forEach(card => {
 
-        const title =
-            card.querySelector("h2")
-                .textContent
+
+    cards.forEach(function (card) {
+
+        const cardText =
+            card.textContent
                 .toLowerCase();
 
 
-        const authorElement =
-            card.querySelector("strong");
-
-
-        const author = 
-        authorElement ? authorElement.parentElement.textContent.toLowerCase() : "";
-        const description =
-            card.textContent.toLowerCase();
-
-
         if (
-            title.includes(value) ||
-            author.includes(value) ||
-            description.includes(value)
+            cardText.includes(
+                searchValue
+            )
         ) {
 
             card.style.display = "";
-        } else {
 
-            card.style.display = "none";
+        }
+
+        else {
+
+            card.style.display =
+                "none";
+
         }
 
     });
+
 }
 
+// ESCAPE HTML
+
+function escapeHTML(value) {
+
+    return String(value)
+
+        .replace(
+            /&/g,
+            "&amp;"
+        )
+
+        .replace(
+            /</g,
+            "&lt;"
+        )
+
+        .replace(
+            />/g,
+            "&gt;"
+        )
+
+        .replace(
+            /"/g,
+            "&quot;"
+        )
+
+        .replace(
+            /'/g,
+            "&#039;"
+        );
+
+}
+
+// START
 
 loadBlogs();
+
 loadEditBlog();
