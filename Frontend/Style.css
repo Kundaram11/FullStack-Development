@@ -16,16 +16,24 @@ body {
 /* Navigation Bar */
 .navbar {
   background-color: rgba(0, 0, 0, 0.25);
-  padding: 18px 0;
-  display: flex;
-  justify-content: center;
+  padding: 15px 40px;
+  display:flex;
+  justify-content: space-between;
   align-items: center;
+}
+.nav-title{
+  font-size: 1.5rem;
+  font-weight: bold;
+  font-family: 'Times New Roman', Times, serif;
+  
 }
 
 .nav-links {
   display: flex;
   gap: 20px;
 }
+
+
 
 .nav-btn {
   color: #ffffff;
@@ -258,7 +266,8 @@ nav ul li a:hover {
   text-align: center;
   font-size: 1.2rem;
   color: #fff;
-  padding: 40px;
+  padding: 20px;
+  font-family: 'Times New Roman', Times, serif;
 }
 
 
@@ -325,7 +334,6 @@ textarea {
 .form-group input:focus,
 .form-group textarea:focus {
     border-color: #007bff;
-
     box-shadow: 0 0 4px rgba(0, 123, 255, 0.2);
 }
 
