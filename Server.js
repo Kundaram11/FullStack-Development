@@ -39,7 +39,25 @@ let blogs =[
 
 // GET all blogs
 app.get("/api/blogs", (req, res) => {
+ 
     res.json(blogs);
+});
+// GET SINGLE BLOG
+app.get("/api/blogs/:id", (req, res) => {
+
+    const blogId = parseInt(req.params.id);
+
+    const blog = blogs.find(
+        blog => blog.id === blogId
+    );
+
+    if (!blog) {
+        return res.status(404).json({
+            message: "Blog not found"
+        });
+    }
+
+    res.json(blog);
 });
         
 // POST new blog
@@ -128,14 +146,18 @@ app.delete("/api/blogs/:id", (req, res) => {
         });
     }
     // Delete Blog
-    blogs.splice(blogIndex, 1);
+    const deletedBlog = blogs.splice(blogIndex, 1);
 
     res.json({
-        message: "🗑️ Blog deleted successfully!"
+        message: "🗑️ Blog deleted successfully!",
+        blog: deletedBlog[0]
     });
 });
-
-
+// Default Page
+app.get("/", (req, res) => {
+    res.sendFile(path.join(__dirname, "Frontend", "Index.html"));
+});
+// Start Server
 app.listen(PORT, () => {
     console.log(`Server running at http://localhost:${PORT}`);
 });
