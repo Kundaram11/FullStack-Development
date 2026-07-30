@@ -16,11 +16,11 @@ concurrency:
 
 jobs:
   deploy:
+    runs-on: ubuntu-latest
+
     environment:
       name: github-pages
       url: ${{ steps.deployment.outputs.page_url }}
-
-    runs-on: ubuntu-latest
 
     steps:
       - name: Checkout repository
@@ -32,10 +32,14 @@ jobs:
       - name: Prepare website
         run: |
           mkdir public
-          cp -r Frontend/* public/
+          cp Frontend/index.html public/index.html
+          cp Frontend/Blog.html public/Blog.html
+          cp Frontend/EditBlog.html public/EditBlog.html
+          cp Frontend/Script.js public/Script.js
+          cp Frontend/Style.css public/Style.css
 
       - name: Upload Pages artifact
-        uses: actions/upload-pages-artifact@v3
+        uses: actions/upload-pages-artifact@v4
         with:
           path: ./public
 
