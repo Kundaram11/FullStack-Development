@@ -2,9 +2,9 @@
   "name": "fullstack-development",
   "version": "1.0.0",
   "description": "Day 5 Express Project",
-  "main": "Server.js",
+  "main": "server.js",
   "scripts": {
-    "start": "node Server.js"
+    "start": "node server.js"
   },
   "author": "",
   "license": "ISC",
@@ -12,3 +12,4 @@
     "express": "^5.2.1"
   }
 }
+
