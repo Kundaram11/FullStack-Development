@@ -3,7 +3,7 @@ const path = require("path");
 const { title } = require("process");
 
 const app = express();
-const PORT = 3000;
+const PORT = process.env.PORT || 3000;
 
 // Middleware
 app.use(express.json());
@@ -155,7 +155,7 @@ app.delete("/api/blogs/:id", (req, res) => {
 });
 // Default Page
 app.get("/", (req, res) => {
-    res.sendFile(path.join(__dirname, "Frontend", "Index.html"));
+    res.sendFile(path.join(__dirname, "Frontend", "index.html"));
 });
 // Start Server
 app.listen(PORT, () => {
