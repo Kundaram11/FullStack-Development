@@ -158,6 +158,10 @@ app.get("/", (req, res) => {
     res.sendFile(path.join(__dirname, "Frontend", "index.html"));
 });
 // Start Server
-app.listen(PORT, () => {
-    console.log(`Server running at http://localhost:${PORT}`);
-});
+if (require.main === module) {
+    app.listen(PORT, () => {
+        console.log(`Server running on port ${PORT}`);
+    });
+}
+
+module.exports = app;
