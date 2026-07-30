@@ -171,7 +171,7 @@ if (blogForm) {
 
 
                 window.location.href =
-                    "Index.html";
+                    "index.html";
 
 
                 return;
@@ -232,7 +232,7 @@ if (blogForm) {
 
             // Go to home page
             window.location.href =
-                "Index.html";
+                "index.html";
 
         }
 
