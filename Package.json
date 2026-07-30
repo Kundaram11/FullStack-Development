@@ -1,0 +1,14 @@
+{
+  "name": "fullstack-development",
+  "version": "1.0.0",
+  "description": "Day 5 Express Project",
+  "main": "Server.js",
+  "scripts": {
+    "start": "node Server.js"
+  },
+  "author": "",
+  "license": "ISC",
+  "dependencies": {
+    "express": "^5.2.1"
+  }
+}
