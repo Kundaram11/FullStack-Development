@@ -1,3 +1,4 @@
+const API_URL = "https://full-stack-development-88lond0z8-varsha-024a.vercel.app";
 const blogForm = document.getElementById("blogForm");
 
 if (blogForm) {
@@ -122,7 +123,7 @@ if (blogForm) {
 
                 const response =
                     await fetch(
-                        `/api/blogs/${blogId}`,
+                        `${API_URL}/api/blogs/${blogId}`,
                         {
                             method: "PUT",
 
@@ -184,7 +185,7 @@ if (blogForm) {
 
             const response =
                 await fetch(
-                    "/api/blogs",
+                    `${API_URL}/api/blogs`,
                     {
                         method: "POST",
 
@@ -276,7 +277,9 @@ async function loadBlogs() {
 
 
         const response =
-            await fetch("/api/blogs");
+            await fetch(
+                    `${API_URL}/api/blogs`),
+                  
 
 
         console.log(
@@ -421,7 +424,7 @@ async function editBlog(id) {
     try {
 
         const response =
-            await fetch("/api/blogs");
+            await fetch(`${API_URL}/api/blogs`);
 
 
         const blogs =
@@ -512,7 +515,7 @@ async function loadEditBlog() {
 
         const response =
             await fetch(
-                `/api/blogs/${blogId}`
+                `${API_URL}/api/blogs/${blogId}`
             );
 
 
@@ -649,7 +652,7 @@ async function deleteBlog(id) {
 
         const response =
             await fetch(
-                `/api/blogs/${id}`,
+                `${API_URL}/api/blogs/${id}`,
                 {
                     method: "DELETE"
                 }
