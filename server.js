@@ -1,17 +1,11 @@
-const cors = require("cors");
+
 const express = require("express");
+const cors = require("cors");
 const path = require("path");
 
 const app = express();
 const PORT = process.env.PORT || 3000;
-app.use(cors({
-    origin: [
-        "http://localhost:3000",
-        "https://full-stack-development-q8p9ts719-varsha-024a.vercel.app"
-    ],
-    methods: ["GET", "POST", "PUT", "DELETE"],
-    allowedHeaders: ["Content-Type"]
-}));
+app.use(cors());
 
 // Middleware
 app.use(express.json());
