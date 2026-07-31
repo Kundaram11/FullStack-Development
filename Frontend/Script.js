@@ -853,6 +853,11 @@ function escapeHTML(value) {
 
 // START
 
-loadBlogs();
+document.addEventListener("DOMContentLoaded", function () {
+    loadBlogs();
+    loadEditBlog();
+});
 
-loadEditBlog();
+window.addEventListener("pageshow", function () {
+    loadBlogs();
+});
