@@ -1,4 +1,4 @@
-const API_URL = "https://full-stack-development-88lond0z8-varsha-024a.vercel.app";
+const API_URL = " ";
 const blogForm = document.getElementById("blogForm");
 
 if (blogForm) {
