@@ -278,7 +278,7 @@ async function loadBlogs() {
 
         const response =
             await fetch(
-                    `${API_URL}/api/blogs`),
+                    `${API_URL}/api/blogs`);
                   
 
 
