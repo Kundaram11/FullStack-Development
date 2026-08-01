@@ -298,6 +298,7 @@ async function loadBlogs() {
 
         const blogs =
             await response.json();
+        blogs.sort((a,b)=>a.id-b.id);    
 
 
         console.log(
@@ -417,6 +418,7 @@ async function loadBlogs() {
 
 }
 
+
 // EDIT BLOG
 
 async function editBlog(id) {
@@ -424,27 +426,22 @@ async function editBlog(id) {
     try {
 
         const response =
-            await fetch(`${API_URL}/api/blogs`);
-
-
-        const blogs =
-            await response.json();
+            await fetch(
+                `${API_URL}/api/blogs/${id}`
+            );
 
 
         const blog =
-            blogs.find(
-                item =>
-                    Number(item.id) === Number(id)
+            await response.json();
+
+
+        if (!response.ok) {
+
+            throw new Error(
+                blog.message ||
+                "Blog not found"
             );
 
-
-        if (!blog) {
-
-            alert(
-                "❌ Blog not found!"
-            );
-
-            return;
         }
 
 
@@ -858,6 +855,3 @@ document.addEventListener("DOMContentLoaded", function () {
     loadEditBlog();
 });
 
-window.addEventListener("pageshow", function () {
-    loadBlogs();
-});

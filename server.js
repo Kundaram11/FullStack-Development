@@ -1,8 +1,7 @@
-
 const express = require("express");
 const cors = require("cors");
 const path = require("path");
-
+const db = require("./db");
 const app = express();
 const PORT = process.env.PORT || 3000;
 app.use(cors());
@@ -13,145 +12,200 @@ app.use(express.json());
 // Serve frontend files
 app.use(express.static(path.join(__dirname, "Frontend")));
 
-// JavaScript array to store blogs
-let blogs = [
-    {
-        id: 1,
-        title: "HTML Basics",
-        author: "Tim Berners-Lee",
-        description: "HTML is the standard language used to create web pages.",
-        date: "25 July 2026"
-    },
-    {
-        id: 2,
-        title: "Learn CSS",
-        author: "Hakon Wium Lie",
-        description: "CSS makes websites attractive using colors, fonts and layouts.",
-        date: "25 July 2026"
-    },
-    {
-        id: 3,
-        title: "JavaScript Introduction",
-        author: "Brendan Eich",
-        description: "JavaScript adds interactivity and dynamic behavior to websites.",
-        date: "25 July 2026"
-    }
-];
 
 // GET all blogs
+
 app.get("/api/blogs", (req, res) => {
-    res.json(blogs);
+    const sql = `
+        SELECT
+            id,
+            title,
+            author,
+            description,
+            DATE_FORMAT(created_at, '%d %M %Y') AS date
+        FROM blogs
+        ORDER BY id ASC
+    `;
+    console.log("GET BLOGS API CALLED")
+    db.query(sql, (err, results) => {
+        if (err) {
+            console.log(err);
+            return res.status(500).json({
+                message: "Database error"
+            });
+        }
+        console.log(results);
+        res.json(results);
+    });
 });
 
 // GET SINGLE BLOG
 app.get("/api/blogs/:id", (req, res) => {
-    const blogId = parseInt(req.params.id);
 
-    const blog = blogs.find(blog => blog.id === blogId);
+    const id = req.params.id;
 
-    if (!blog) {
-        return res.status(404).json({
-            message: "Blog not found"
-        });
-    }
+    const sql = `
+        SELECT
+            id,
+            title,
+            author,
+            description,
+            DATE_FORMAT(created_at, '%d %M %Y') AS date
+        FROM blogs
+        WHERE id = ?
+    `;
 
-    res.json(blog);
+    db.query(sql, [id], (err, results) => {
+
+        if (err) {
+            
+            return res.status(500).json(err);
+        };
+        
+
+        if (results.length === 0) {
+            return res.status(404).json({
+                message: "Blog not found"
+            });
+        }
+
+        res.json(results[0]);
+
+    });
+
 });
-
 // POST - Add new blog
 app.post("/api/blogs", (req, res) => {
+
     const { title, author, description } = req.body;
 
-    if (!title || !author || !description) {
-        return res.status(400).json({
-            message: "All fields are required!"
-        });
-    }
+    const sql = `
+        INSERT INTO blogs(title, author, description)
+        VALUES (?, ?, ?)
+    `;
 
-    // Generate today's date
-    const today = new Date().toLocaleDateString("en-GB", {
-        day: "2-digit",
-        month: "long",
-        year: "numeric"
-    });
+    db.query(
+        sql,
+        [title, author, description],
+        (err, result) => {
 
-    const newBlog = {
-        id: blogs.length > 0
-            ? blogs[blogs.length - 1].id + 1
-            : 1,
-        title,
-        author,
-        description,
-        date: today
-    };
+            if (err) {
+                console.error(err);
+                return res.status(500).json({
+                    message: "Unable to add blog"
+                });
+            }
 
-    blogs.push(newBlog);
+            res.status(201).json({
+                message: "Blog added successfully",
+                id: result.insertId
+            });
 
-    res.status(201).json({
-        message: "Blog added successfully!",
-        blog: newBlog
-    });
+        }
+    );
+
 });
 
 // PUT - Update an existing blog
-app.put("/api/blogs/:id", (req, res) => {
-    const blogId = parseInt(req.params.id);
+   app.put("/api/blogs/:id", (req, res) => {
+
+    const id = req.params.id;
 
     const { title, author, description } = req.body;
 
-    if (!title || !author || !description) {
-        return res.status(400).json({
-            message: "All fields are required!"
-        });
-    }
+    const sql = `
+        UPDATE blogs
+        SET
+            title = ?,
+            author = ?,
+            description = ?
+        WHERE id = ?
+    `;
 
-    const blogIndex = blogs.findIndex(blog => blog.id === blogId);
+    db.query(
+        sql,
+        [title, author, description, id],
+        (err, result) => {
 
-    if (blogIndex === -1) {
-        return res.status(404).json({
-            message: "Blog not found"
-        });
-    }
+            if (err) {
+                console.error(err);
+                return res.status(500).json({
+                    message: "Update failed"
+                });
+            }
 
-    // Generate today's date when blog is updated
-    const updatedDate = new Date().toLocaleDateString("en-GB", {
-        day: "2-digit",
-        month: "long",
-        year: "numeric"
-    });
+        
+            res.json({
+                message: "Blog updated successfully",
+                id: id
+            });
 
-    blogs[blogIndex] = {
-        id: blogId,
-        title,
-        author,
-        description,
-        date: updatedDate
-    };
+        }
+    );
 
-    res.json({
-        message: "Blog updated successfully!",
-        blog: blogs[blogIndex]
-    });
 });
 
-// DELETE - Delete a blog
+// DELETE BLOG
 app.delete("/api/blogs/:id", (req, res) => {
-    const blogId = parseInt(req.params.id);
 
-    const blogIndex = blogs.findIndex(blog => blog.id === blogId);
+    const id = req.params.id;
 
-    if (blogIndex === -1) {
-        return res.status(404).json({
-            message: "Blog not found"
-        });
-    }
+    const deleteSQL = "DELETE FROM blogs WHERE id = ?";
 
-    const deletedBlog = blogs.splice(blogIndex, 1);
 
-    res.json({
-        message: "Blog deleted successfully!",
-        blog: deletedBlog[0]
+    db.query(deleteSQL, [id], (err, result) => {
+
+        if (err) {
+            console.error(err);
+
+            return res.status(500).json({
+                message: "Delete failed"
+            });
+        }
+
+
+        // Check if table is empty
+        db.query(
+            "SELECT COUNT(*) AS total FROM blogs",
+            (err, rows) => {
+
+                if (err) {
+                    console.error(err);
+
+                    return res.status(500).json({
+                        message: "Count failed"
+                    });
+                }
+
+
+                if (rows[0].total === 0) {
+
+                    db.query(
+                        "ALTER TABLE blogs AUTO_INCREMENT = 1",
+                        (err) => {
+
+                            if (err) {
+                                console.error(
+                                    "Reset ID error:",
+                                    err
+                                );
+                            }
+
+                        }
+                    );
+
+                }
+
+
+                res.json({
+                    message: "Blog deleted successfully"
+                });
+
+            }
+        );
+
     });
+
 });
 
 // Default Page

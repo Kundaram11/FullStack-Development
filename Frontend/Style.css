@@ -4,11 +4,10 @@
   box-sizing: border-box;
   font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
 }
-
 body {
   display: flex;
   flex-direction: column;
-  min-height: 100vh;
+  min-height: 100%;
   background-color: #2b3990; /* Rich blue background */
   color: #ffffff;
   animation: pageFade 0.8s ease-in-out;
@@ -23,8 +22,6 @@ body {
   animation: gradientMove 12s ease infinite;
 }
 
-
-
 /* Navigation Bar */
 .navbar {
   background-color: rgba(0, 0, 0, 0.25);
@@ -32,16 +29,15 @@ body {
   display:flex;
   justify-content: space-between;
   align-items: center;
+  width: 100%;
+ 
 }
 .nav-title{
   font-size: 1.5rem;
   font-weight: bold;
-  font-family: 'Times New Roman', Times, serif;
- 
+  font-family: 'Times New Roman', Times, serif;  
   
 }
-
-
 .nav-links {
   display: flex;
   gap: 20px;
@@ -51,7 +47,6 @@ body {
         #a5b4fc,
         #ffffff
     );
-
     background-size: 200% auto;
     color: transparent;
     background-clip: text;
@@ -93,8 +88,6 @@ body {
 .nav-btn:hover::after {
     width: 80%;
 }
-
-
 
 /* Main Hero Section */
 .hero {
@@ -154,43 +147,15 @@ transform: scale(1.04);
 }
 
 /* Footer Section */
-.footer {
-  background-color: rgba(255, 255, 255, 0.15);
-  text-align: center;
-  padding: 16px 20px;
 
-}
 
 .footer p {
   font-size: 0.95rem;
   color: #d1d5db;
   font-family: 'Times New Roman', Times, serif;
 }
-/* General Reset */
-* {
-  margin: 0;
-  padding: 0;
-  box-sizing: border-box;
-  font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
-}
 
-body {
-  background-color: #2b3990;
-  color: #ffffff;
-  min-height: 100vh;
-  display: flex;
-  flex-direction: column;
-  animation: pageFade 0.8s ease-in-out;
-  background: linear-gradient(
-        -45deg,
-        #2b3990,
-        #4b5bdc,
-        #283593,
-        #5c6bc0
-    );
-  background-size: 400% 400%;
-  animation: gradientMove 12s ease infinite;
-}
+
 
 /* Navigation Bar */
 nav {
@@ -252,6 +217,7 @@ nav ul li a:hover {
     position: relative;
     overflow: hidden;
     transition: all 0.4s ease;
+    width: 100%;
 }
 
 .blog-card:hover {
@@ -286,9 +252,13 @@ nav ul li a:hover {
         auto-fit,
         minmax(280px, 1fr)
     );
-
-    gap: 25px;
+@media(max-width: 768px){
+  .blog-container {
+    grid-template-columns: 1fr;
+  }
 }
+}
+    
 /* BLOG COUNTER */
 .blog-counter{
   text-align: center;
@@ -306,6 +276,13 @@ nav ul li a:hover {
 #blogCount:hover {
     transform: scale(1.15);
 }
+#blogList {
+    display: grid;
+    grid-template-columns: repeat(3, 1fr); /* 3 cards per row */
+    gap: 20px;
+    padding: 20px;
+}
+
 /* BLOG CARD */
 .card {
   background-color: rgba(255, 255, 255, 0.1);
@@ -566,13 +543,12 @@ button:active {
 .edit-btn,
 .delete-btn {
   flex: 1;
-    padding: 10px 15px;
+    padding: 8px 10px;
     border: none;
-    border-radius: 8px;
+    border-radius: 5px;
     cursor: pointer;
     font-size: 15px;
-    background: #f0ad4e;
-    color: white;
+    
    
   
 }
@@ -586,7 +562,9 @@ button:active {
 
 .edit-btn:hover {
     background-color: #0F766E;
-    opacity: 0.85;
+    opacity: 1;
+    transform: scale(1.05);
+    transition: 0.3s;
 }
 
 
@@ -598,7 +576,9 @@ button:active {
 
 .delete-btn:hover {
     background-color: #EF4444;
-    opacity: 0.85;
+    opacity: 1;
+    transform: scale(1.05);
+    transition: 0.3s;
 }
 
 /* Footer */
@@ -607,6 +587,10 @@ footer {
   background-color: rgba(255, 255, 255, 0.15);
   text-align: center;
   padding: 15px;
+  bottom: 0;
+  left: 0;
+  width: 100%;
+  z-index: 1000;
   font-size: 0.95rem;
   font-family: 'Times New Roman', Times, serif;
 
@@ -716,32 +700,35 @@ h1 {
     }
 }
 /* RESPONSIVE */
-@media (max-width: 600px) {
+@media screen and (max-width:480px){
 
-    header {
-        flex-direction: column;
-
-        gap: 15px;
+    h1,
+    .title{
+        font-size:1.6rem;
     }
 
-
-    nav {
-        gap: 10px;
+    .hero-content h1{
+        font-size:1.8rem;
     }
 
-
-    .hero h1 {
-        font-size: 30px;
+    .hero-content p{
+        font-size:0.95rem;
     }
 
-
-    .form-section {
-        padding: 25px 20px;
+    .nav-btn{
+        width:100%;
     }
 
+    .search-box{
+        margin:15px;
+    }
 
-    .form-buttons {
-        flex-direction: column;
+    .search-box input{
+        font-size:15px;
+    }
+
+    .card{
+        padding:15px;
     }
 
 }
