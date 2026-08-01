@@ -17,7 +17,6 @@ if (blogForm) {
         const blogId =
             blogIdElement ? blogIdElement.value : "";
 
-
         let title;
         let author;
         let description;
