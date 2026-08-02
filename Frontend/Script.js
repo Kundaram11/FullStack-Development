@@ -1,4 +1,4 @@
-const API_URL = "https://fullstack-development-production.up.railway.app/";
+const API_URL = "https://fullstack-development-production.up.railway.app";
 const blogForm = document.getElementById("blogForm");
 
 if (blogForm) {
