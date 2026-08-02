@@ -1,5 +1,6 @@
 CREATE DATABASE IF NOT EXISTS blogdb;
 
+
 USE blogdb;
 
 
