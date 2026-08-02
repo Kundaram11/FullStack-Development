@@ -1,4 +1,4 @@
-const API_URL = "https://your-backend.up.railway.app";
+const API_URL = "";
 const blogForm = document.getElementById("blogForm");
 
 if (blogForm) {
