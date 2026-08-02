@@ -326,6 +326,7 @@ nav ul li a:hover {
     color: #555;
     margin-bottom: 20px;
     flex-grow: 1;
+    text-align: justify;
 }
 /* Blog date */
 .blog-date {
