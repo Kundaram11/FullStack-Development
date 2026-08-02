@@ -373,8 +373,7 @@ async function loadBlogs() {
                             minute: "2-digit",
                             second: "2-digit",
                             hour12: true
-                        })
-                           : "No date"
+                        }).replace(",", " ⏰") : "No date"
                     }
                 </p>
 
